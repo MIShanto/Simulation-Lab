@@ -17,20 +17,21 @@ def linearCongruentialMethod(Xo, m, a, c,
 if __name__ == '__main__':
 	
 	# Seed value
-	Xo = 27
+	Xo = 0
 	
 	# Modulus parameter
-	m = 100
+	m = 10
 	
 	# Multiplier term
-	a = 17
+	a = 1
 	
 	# Increment term
-	c = 43
+	c = 3
 
 	# Number of Random numbers
 	# to be generated
-	noOfRandomNums = 10
+	noOfRandomNums = 13
+
 
 	# To store random numbers
 	randomNums = [0] * (noOfRandomNums)
