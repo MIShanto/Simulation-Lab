@@ -21,7 +21,7 @@ nodes = {}
 visited = {}
 leafs = {}
 
-file = open("./input.txt")
+file = open("././input.txt")
 
 for lines in file:
     line = lines.rstrip('\n').split(',')
