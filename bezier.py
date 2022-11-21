@@ -46,7 +46,8 @@ while running:
             BEZ2 = (3 * t * t * (1 - t) * P2[0] , 3 * t * t * (1 - t) * P2[1])
             BEZ3 = (pow(t , 3) * P3[0] , pow(t , 3) * P3[1])
 
-            P = (BEZ0[0] + BEZ1[0] + BEZ2[0] + BEZ3[0],BEZ0[1] + BEZ1[1] + BEZ2[1] + BEZ3[1])
+            #P = (BEZ0[0] + BEZ1[0] + BEZ2[0] + BEZ3[0],BEZ0[1] + BEZ1[1] + BEZ2[1] + BEZ3[1])
+            P = (BEZ0 + BEZ1 + BEZ2 + BEZ3,BEZ0[1] + BEZ1[1] + BEZ2[1] + BEZ3[1])
 
             x,y = round(P[0]) , round(P[1])
 
