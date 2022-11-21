@@ -1,6 +1,6 @@
 from collections import defaultdict
 from collections import deque
-import sys
+import math
 
 class Node:
     def __init__(self,id,name,dur,es,ef,ls,lf) -> None:
@@ -18,7 +18,7 @@ criticalPath = []
 totalDuration = 0
 leaves = {} 
 
-path = './input3.txt'
+path = './input1.txt'
 for lines in open(path):
     line = lines.rstrip('\n').split(',')
     id = int(line[0]); name = line[1]; duration = int(line[2])
@@ -33,7 +33,7 @@ for lines in open(path):
         q.append(id)
         ef = duration
 
-    nodes[id] = Node(id,name,duration,0,ef,0,sys.maxsize)
+    nodes[id] = Node(id,name,duration,0,ef,0,math.inf)
     visited[id] = 0
     leaves[id] = 0
 
