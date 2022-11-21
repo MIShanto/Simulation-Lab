@@ -12,6 +12,7 @@ class Node:
 nodes = {}
 visited = {}
 q = deque()
+seq = deque()
 forwardPass = defaultdict(list)
 backwardPass = defaultdict(list)
 criticalPath = []
@@ -42,9 +43,9 @@ while q:
     u = q.popleft()
     ef = nodes[u].ef
     for v in forwardPass[u]:
+        nodes[v].es = max(ef,nodes[v].es)
+        nodes[v].ef = nodes[v].es + nodes[v].du
         if visited[v] != 1:
-            nodes[v].es = max(ef,nodes[v].es)
-            nodes[v].ef = nodes[v].es + nodes[v].du
             q.append(v)
             outDegree += 1
 
@@ -54,26 +55,37 @@ while q:
         
     visited[u] = 1
 
+
 for node,leaf in leaves.items():
     if leaf:
         nodes[node].lf = totalDuration
         nodes[node].ls = nodes[node].lf - nodes[node].du
         q.append(node)
+        seq.append(node)
     visited[node] = 0
+
 
 while q:
     u = q.popleft()
     ls = nodes[u].ls
     for v in backwardPass[u]:
+        nodes[v].lf = min(nodes[v].lf,ls)
+        nodes[v].ls = nodes[v].lf - nodes[v].du
+            
         if visited[v] != 1:
-            nodes[v].lf = min(nodes[v].lf,ls)
-            nodes[v].ls = nodes[v].lf - nodes[v].du
             q.append(v)
-    
-    if nodes[u].es == nodes[u].ls and visited[u] == 0:
-        criticalPath.append(nodes[u].name)
         
     visited[u] = 1
+    
+while seq:
+    u = seq.popleft()
+    visited[u] = 0
+    if nodes[u].es == nodes[u].ls:
+        criticalPath.append(nodes[u].name)
+        for v in backwardPass[u]:
+            if visited[v] == 1:
+                seq.append(v)
+                #visited[v] = 0
     
 
 def printNodes(nodes):
@@ -83,7 +95,11 @@ def printNodes(nodes):
             
 printNodes(nodes)
 
-for i , e  in reversed(list(enumerate(criticalPath))):
-    print(e,end = '')
-    if i != 0:
-        print('->',end='')
+# for i , e  in reversed(list(enumerate(criticalPath))):
+#     print(e,end = '')
+#     if i != 0:
+#         print('->',end='')
+
+criticalPath.reverse()
+
+print(criticalPath)

@@ -17,11 +17,11 @@ xb = [int(x) for x in inputs[1]]
 yb = [int(x) for x in inputs[2]]
 
 xf = [0]
-yf = [50]
+yf = [0]
 
 pygame.init()
 
-size = width, height = (800, 800)
+size = width, height = (800, 500)
 center_coords = (width/2, height/2)
 
 screen = pygame.display.set_mode(size)
@@ -29,26 +29,21 @@ screen.fill((255, 255, 255))
 
 pygame.display.set_caption('Pure Pursuit')
 
-f = pygame.font.get_fonts()[0]
+f = pygame.font.get_default_font()
 font = pygame.font.SysFont(f, 32)
 
-position_boomber = font.render("B", True, (255,0,0), (0,0,0))
-position_fighter = font.render("F", True, (0,255,0), (0,0,0))
 position_match = font.render("Caught", True, (0,255,0), (0,0,0))
 position_escape = font.render("Escaped", True, (255,0,0), (0,0,0))
 
-textRect1 = position_boomber.get_rect()
-textRect2 = position_fighter.get_rect()
 textRect4 = position_match.get_rect()
 textRect5 = position_escape.get_rect()
 
 running = True
 
 while running:
-    for event in pygame.event.get():
-        if event.type == QUIT:
-            running = False
-
+    # for event in pygame.event.get():
+    #     if event.type == QUIT:
+    #         running = False
     for t in range(len(xb)):
 
         pygame.time.delay(100)
@@ -63,7 +58,6 @@ while running:
             screen.blit(position_escape , textRect5)
             print('Bomber escaped!')
             running = False
-            pygame.display.flip()
             break
 
         dist = np.sqrt( (yb[t] - yf[t])**2 + (xb[t] - xf[t])**2 )
@@ -73,7 +67,6 @@ while running:
             screen.blit(position_match, textRect4)
             print('caught at time', t)
             running = False
-            pygame.display.flip()
             break
 
         cosx = (xb[t] - xf[t]) / dist
@@ -92,8 +85,8 @@ while running:
         print('Red line = Bomber, Blue line = Fighter')
 
         pygame.display.flip()
-        pygame.time.delay(100)
 
-    #running = False
+    pygame.display.flip()
+
 pygame.time.delay(1000)
 pygame.quit()
